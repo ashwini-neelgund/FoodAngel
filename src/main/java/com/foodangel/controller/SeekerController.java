@@ -43,8 +43,8 @@ public class SeekerController {
         requestService.removeRequest(requestId);
     }
 
-    @GetMapping("/check/angel")
-    public boolean checkForAngel(@RequestParam int zipcode){
+    @GetMapping("/check/angel/{zipCode}")
+    public boolean checkForAngel(@PathVariable("zipCode") int zipcode){
         if(requestService.checkForAngel(zipcode)){
             return true;
         }else
