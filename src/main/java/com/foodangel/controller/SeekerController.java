@@ -1,5 +1,6 @@
 package com.foodangel.controller;
 
+import com.foodangel.model.Item;
 import com.foodangel.model.Request;
 import com.foodangel.model.User;
 import com.foodangel.service.RequestService;
@@ -29,7 +30,7 @@ public class SeekerController {
     }
 
     @PostMapping("/add/request")
-    public Request addRequest(@RequestParam User user){
+    public Request addRequest(@RequestBody User user){
         return requestService.addRequest(user);
     }
 
@@ -49,5 +50,10 @@ public class SeekerController {
             return true;
         }else
             return false;
+    }
+
+    @GetMapping("/items")
+    public List<Item> getItems(){
+        return requestService.getItems();
     }
 }

@@ -5,12 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
@@ -28,7 +25,4 @@ public class Item implements Serializable {
 
     String description;
 
-    @Fetch(FetchMode.JOIN)
-    @ManyToMany(mappedBy = "items", targetEntity = Request.class)
-    private List<Request> requests;
 }

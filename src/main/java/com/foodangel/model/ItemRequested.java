@@ -1,14 +1,14 @@
 package com.foodangel.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -16,19 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "requests")
-public class Request implements Serializable {
+@Table(name = "items_requested")
+public class ItemRequested {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    int pin;
+    String name;
 
-    String status;
+    String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "request_id")
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    List<ItemRequested> itemsRequested;
 }
