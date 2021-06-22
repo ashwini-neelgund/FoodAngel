@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/seeker")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @Log
 public class SeekerController {
 
