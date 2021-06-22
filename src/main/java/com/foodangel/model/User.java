@@ -1,6 +1,7 @@
 package com.foodangel.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,11 +48,18 @@ public class User implements Serializable {
 
     @Lob
     @Column(name = "image_byte", columnDefinition = "MEDIUMBLOB")
-    private byte[] imageByte;
+    byte[] imageByte;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     List<Address> address;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seeker_id")
+    List<Request> requests;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "angel_id")
+    List<Request> requestsAssignedToAngel;
 }
