@@ -11,4 +11,6 @@ public interface RequestService {
     Request updateRequest(Request request);
 
     void removeRequest(Long requestId);
+
+    boolean checkForAngel(int zipcode);
 }

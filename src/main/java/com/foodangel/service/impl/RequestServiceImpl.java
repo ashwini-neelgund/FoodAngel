@@ -7,6 +7,8 @@ import com.foodangel.model.User;
 import com.foodangel.service.RequestService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("RequestService")
 public class RequestServiceImpl implements RequestService {
 
@@ -42,5 +44,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void removeRequest(Long requestId) {
         requestDao.delete(requestDao.getById(requestId));
+    }
+
+    @Override
+    public boolean checkForAngel(int zipcode) {
+        List<User> angels = userDao.findAllByZipCode(zipcode);
+        return !angels.isEmpty();
     }
 }

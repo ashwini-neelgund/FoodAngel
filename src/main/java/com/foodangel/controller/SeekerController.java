@@ -42,4 +42,12 @@ public class SeekerController {
     public void deleteRequest(@RequestParam Long requestId){
         requestService.removeRequest(requestId);
     }
+
+    @GetMapping("/check/angel")
+    public boolean checkForAngel(@RequestParam int zipcode){
+        if(requestService.checkForAngel(zipcode)){
+            return true;
+        }else
+            return false;
+    }
 }
