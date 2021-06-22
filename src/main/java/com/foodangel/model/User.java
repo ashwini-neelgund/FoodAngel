@@ -54,4 +54,11 @@ public class User implements Serializable {
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     List<Address> address;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seeker_id")
+    List<Request> requests;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "angel_id")
+    List<Request> requestsAssignedToAngel;
 }

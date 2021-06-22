@@ -4,6 +4,7 @@ import com.foodangel.model.User;
 import com.foodangel.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,15 +13,14 @@ import java.io.IOException;
 import java.util.zip.Deflater;
 
 @RestController
-@RequestMapping("/angel")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @Log
-public class UserController {
+public class HomeController {
 
     private UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public HomeController(UserService userService) {
         this.userService = userService;
     }
 
