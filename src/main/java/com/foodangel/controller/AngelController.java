@@ -21,27 +21,29 @@ public class AngelController {
     }
 
     @GetMapping("/new/requests/{username}")
-    public List<Request> getAllNewRequestsInArea(@PathVariable String username){
+    public List<Request> getAllNewRequestsInArea(@PathVariable("username") String username) {
         return userService.getAllNewRequestsInArea(username);
     }
 
-    @GetMapping("/requests")
-    public List<Request> getAllRequestsAssignedToAngel(@RequestParam String username){
+    @GetMapping("/requests/{username}")
+    public List<Request> getAllRequestsAssignedToAngel(@PathVariable("username") String username) {
         return userService.getAllRequestsAssignedToAngel(username);
     }
 
-    @PutMapping("/add/request")
-    public List<Request> addRequestToAngel(@RequestParam Long requestId, @RequestParam Long angelId){
-        return userService.addRequestToAngel(requestId, angelId);
+    @GetMapping("/add/request/{requestId}/{username}")
+    public List<Request> addRequestToAngel(@PathVariable("requestId") Long requestId, @PathVariable("username") String username) {
+        userService.addRequestToAngel(requestId, username);
+        return userService.getAllRequestsAssignedToAngel(username);
     }
 
-    @DeleteMapping("/remove/request")
-    public List<Request> removeRequestAssignedTOAngel(@RequestParam Long requestId, @RequestParam Long angelId){
-        return userService.removeRequestAssignedTOAngel(requestId, angelId);
+    @GetMapping("/remove/request/{requestId}/{username}")
+    public List<Request> removeRequestAssignedTOAngel(@PathVariable("requestId") Long requestId, @PathVariable("username") String username) {
+        userService.removeRequestAssignedTOAngel(requestId, username);
+        return userService.getAllRequestsAssignedToAngel(username);
     }
 
-    @PutMapping("/request/status")
-    public void updateReqStatusAsComplete(@RequestParam Long requestId){
+    @GetMapping("/request/status/{requestId}")
+    public void updateReqStatusAsComplete(@PathVariable("requestId") Long requestId) {
         userService.updateReqStatusAsComplete(requestId);
     }
 }

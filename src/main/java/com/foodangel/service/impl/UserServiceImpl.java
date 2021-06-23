@@ -28,32 +28,35 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Request> getAllNewRequestsInArea(String email) {
-        User angel = userDao.findByEmailAddress(email);
+        User angel = userDao.findAllByEmailAddress(email);
         return requestDao.findByStatusAndAngelIdAndZipcode(angel.getAddress().get(0).getZipCode());
     }
 
     @Override
     public List<Request> getAllRequestsAssignedToAngel(String email) {
-        User angel = userDao.findByEmailAddress(email);
-        return angel.getRequestsAssignedToAngel();
+        return requestDao.findByEmailAddressAndRequestStatus(email);
     }
 
     @Override
-    public List<Request> addRequestToAngel(Long requestId, Long angelId) {
-        User angel = userDao.getById(angelId);
+    public void addRequestToAngel(Long requestId, String email) {
+        User angel = userDao.findAllByEmailAddress(email);
         List<Request> requestsAssignedToAngel = angel.getRequestsAssignedToAngel();
-        requestsAssignedToAngel.add(requestDao.getById(requestId));
+        Request request = requestDao.getById(requestId);
+        request.setStatus("assigned");
+        requestsAssignedToAngel.add(request);
         angel.setRequestsAssignedToAngel(requestsAssignedToAngel);
-        return userDao.save(angel).getRequestsAssignedToAngel();
+        userDao.save(angel);
     }
 
     @Override
-    public List<Request> removeRequestAssignedTOAngel(Long requestId, Long angelId) {
-        User angel = userDao.getById(angelId);
+    public void removeRequestAssignedTOAngel(Long requestId, String email) {
+        User angel = userDao.findAllByEmailAddress(email);
         List<Request> requestsAssignedToAngel = angel.getRequestsAssignedToAngel();
-        requestsAssignedToAngel.remove(requestDao.getById(requestId));
+        Request request = requestDao.getById(requestId);
+        request.setStatus("active");
+        requestsAssignedToAngel.remove(request);
         angel.setRequestsAssignedToAngel(requestsAssignedToAngel);
-        return userDao.save(angel).getRequestsAssignedToAngel();
+        userDao.save(angel);
     }
 
     @Override

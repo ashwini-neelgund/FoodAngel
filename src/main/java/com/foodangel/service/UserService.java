@@ -13,9 +13,9 @@ public interface UserService {
 
     List<Request> getAllRequestsAssignedToAngel(String username);
 
-    List<Request> addRequestToAngel(Long requestId, Long angelId);
+    void addRequestToAngel(Long requestId, String username);
 
-    List<Request> removeRequestAssignedTOAngel(Long requestId, Long angelId);
+    void removeRequestAssignedTOAngel(Long requestId, String username);
 
     void updateReqStatusAsComplete(Long requestId);
 }
