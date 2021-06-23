@@ -24,8 +24,8 @@ public class SeekerController {
         this.requestService = requestService;
     }
 
-    @GetMapping("/request")
-    public Request getRequest(@RequestParam Long id,@RequestParam int pin){
+    @GetMapping("/request/{id}/{pin}")
+    public Request getRequest(@PathVariable("id") Long id,@PathVariable("pin") int pin){
         return requestService.getRequest(id,pin);
     }
 
@@ -34,13 +34,13 @@ public class SeekerController {
         return requestService.addRequest(user);
     }
 
-    @PutMapping("/update/request")
-    public Request updateRequest(@RequestParam Request request){
+    @PostMapping("/update/request")
+    public Request updateRequest(@RequestBody Request request){
         return requestService.updateRequest(request);
     }
 
-    @DeleteMapping("/remove/request")
-    public void deleteRequest(@RequestParam Long requestId){
+    @DeleteMapping("/remove/request/{requestId}")
+    public void deleteRequest(@PathVariable("requestId") Long requestId){
         requestService.removeRequest(requestId);
     }
 

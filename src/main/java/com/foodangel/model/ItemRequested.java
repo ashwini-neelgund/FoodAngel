@@ -9,6 +9,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "items_requested")
-public class ItemRequested {
+public class ItemRequested implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

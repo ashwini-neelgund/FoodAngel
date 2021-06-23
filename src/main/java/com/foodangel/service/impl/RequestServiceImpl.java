@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service("RequestService")
 public class RequestServiceImpl implements RequestService {
@@ -28,9 +30,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request getRequest(Long id, int pin) {
-        Request request = requestDao.getById(id);
-        if(request.getPin()==pin)
-            return request;
+        Optional<Request> request = requestDao.findById(id);
+        if(request.isPresent() && request.get().getPin()==pin)
+            return request.get();
         else
             return null;
     }
@@ -40,6 +42,7 @@ public class RequestServiceImpl implements RequestService {
         seeker.setUserType("seeker");
         Request request = seeker.getRequests().get(0);
         request.setStatus("active");
+        request.setPin(generateRandomNumber());
         List<ItemRequested> items = request.getItemsRequested();
         List<ItemRequested> itemReq = new ArrayList<>();
         for (ItemRequested item:items) {
@@ -76,5 +79,9 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Item> getItems() {
         return itemDao.findAll();
+    }
+
+    public int generateRandomNumber(){
+        return new Random().nextInt((9999 - 100) + 1) + 10;
     }
 }
