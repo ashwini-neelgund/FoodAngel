@@ -55,3 +55,7 @@ This is a website that would allow angels to help the seekers of our neighborhoo
             -	Every request has 2 buttons to 
                 -	mark request as complete
                 -	unassign the request.
+
+[ER.pdf](https://github.com/ashwini-neelgund/FoodAngel/files/6709912/ER.pdf)
+
+
