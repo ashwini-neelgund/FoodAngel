@@ -56,6 +56,8 @@ This is a website that would allow angels to help the seekers of our neighborhoo
                 -	mark request as complete
                 -	unassign the request.
 
+### ER Diagram:
+
 [ER.pdf](https://github.com/ashwini-neelgund/FoodAngel/files/6709912/ER.pdf)
 
 
