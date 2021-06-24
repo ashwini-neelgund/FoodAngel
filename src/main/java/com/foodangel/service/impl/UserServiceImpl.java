@@ -5,6 +5,7 @@ import com.foodangel.dao.UserDao;
 import com.foodangel.model.Request;
 import com.foodangel.model.User;
 import com.foodangel.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,18 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private RequestDao requestDao;
+    private PasswordEncoder encoder;
 
-    public UserServiceImpl(UserDao userDao, RequestDao requestDao) {
+    public UserServiceImpl(UserDao userDao, RequestDao requestDao,PasswordEncoder encoder) {
         this.userDao = userDao;
         this.requestDao = requestDao;
+        this.encoder = encoder;
     }
 
     @Override
     public User userRegistration(User user) {
         user.setUserType("angel");
+        user.setPassword(encoder.encode(user.getPassword()));
         return userDao.save(user);
     }
 

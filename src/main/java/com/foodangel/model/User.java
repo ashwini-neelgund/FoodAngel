@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -63,4 +64,5 @@ public class User implements Serializable {
     @JoinColumn(name = "angel_id")
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     List<Request> requestsAssignedToAngel;
+
 }

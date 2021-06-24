@@ -1,10 +1,13 @@
 package com.foodangel.controller;
 
+import com.foodangel.model.AuthRequest;
 import com.foodangel.model.User;
 import com.foodangel.service.UserService;
+import com.foodangel.util.JwtUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +21,14 @@ import java.util.zip.Deflater;
 public class HomeController {
 
     private UserService userService;
+    private JwtUtil jwtUtil;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    public HomeController(UserService userService) {
+    public HomeController(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/register")
@@ -54,4 +61,15 @@ public class HomeController {
         return outputStream.toByteArray();
     }
 
+    @PostMapping("/authenticate")
+    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
+            );
+        } catch (Exception ex) {
+            throw new Exception("Invalid username/password");
+        }
+        return jwtUtil.generateToken(authRequest.getUserName());
+    }
 }

@@ -31,7 +31,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request getRequest(Long id, int pin) {
         Optional<Request> request = requestDao.findById(id);
-        if(request.isPresent() && request.get().getPin()==pin)
+        if (request.isPresent() && request.get().getPin() == pin)
             return request.get();
         else
             return null;
@@ -45,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
         request.setPin(generateRandomNumber());
         List<ItemRequested> items = request.getItemsRequested();
         List<ItemRequested> itemReq = new ArrayList<>();
-        for (ItemRequested item:items) {
+        for (ItemRequested item : items) {
             Item itemData = itemDao.getById(item.getId());
             ItemRequested currItem = new ItemRequested();
             currItem.setId(null);
@@ -56,7 +56,8 @@ public class RequestServiceImpl implements RequestService {
         request.getItemsRequested().clear();
         request.setItemsRequested(itemReq);
         seeker.getRequests().add(request);
-        User persistedSeeker = userDao.save(seeker);;
+        User persistedSeeker = userDao.save(seeker);
+        ;
         return persistedSeeker.getRequests().get(0);
     }
 
@@ -81,7 +82,7 @@ public class RequestServiceImpl implements RequestService {
         return itemDao.findAll();
     }
 
-    public int generateRandomNumber(){
+    public int generateRandomNumber() {
         return new Random().nextInt((9999 - 100) + 1) + 10;
     }
 }
